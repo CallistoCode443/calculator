@@ -93,7 +93,13 @@ fun App(modifier: Modifier = Modifier) {
             }
 
             "+", "-", "x", "/" -> {
-                if (current != "") {
+                if (current == "-") {
+                    if (pendingOperation != "") {
+                        current = ""
+                        pendingOperation = label
+                        topText = formatNumber(accumulated) + " " + label
+                    }
+                } else if (current != "") {
                     val number = current.toDouble()
 
                     if (pendingOperation != "") {
@@ -111,8 +117,12 @@ fun App(modifier: Modifier = Modifier) {
                     startNew = false
                     topText = formatNumber(accumulated) + " " + label
                 } else if (pendingOperation != "") {
-                    pendingOperation = label
-                    topText = formatNumber(accumulated) + " " + label
+                    if (label == "-") {
+                        current = "-"
+                    } else {
+                        pendingOperation = label
+                        topText = formatNumber(accumulated) + " " + label
+                    }
                 } else if (label == "-") {
                     current = "-"
                 }
@@ -120,7 +130,7 @@ fun App(modifier: Modifier = Modifier) {
 
             "=" -> {
                 if (pendingOperation != "") {
-                    val number = if (current != "") {
+                    val number = if (current != "" && current != "-") {
                         current.toDouble()
                     } else {
                         accumulated
@@ -146,7 +156,7 @@ fun App(modifier: Modifier = Modifier) {
 
             "%" -> {
                 if (pendingOperation != "") {
-                    val second = if (current != "") {
+                    val second = if (current != "" && current != "-") {
                         current.toDouble()
                     } else {
                         accumulated
@@ -178,9 +188,11 @@ fun App(modifier: Modifier = Modifier) {
                         "" -> {
                             current = "0."
                         }
+
                         "-" -> {
                             current = "-0."
                         }
+
                         else -> {
                             current += "."
                         }
@@ -213,9 +225,11 @@ fun App(modifier: Modifier = Modifier) {
                     "0" -> {
                         current = label
                     }
+
                     "-0" -> {
                         current = "-$label"
                     }
+
                     else -> {
                         current += label
                     }
@@ -419,7 +433,7 @@ private fun calculate(a: Double, op: String, b: Double): Double {
     val x = BigDecimal.valueOf(a)
     val y = BigDecimal.valueOf(b)
 
-    val answer =  when (op) {
+    val answer = when (op) {
         "+" -> {
             x.add(y)
         }
