@@ -35,6 +35,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.github.CallistoCode443.calculator.ui.theme.CalculatorTheme
+import java.math.BigDecimal
+import java.math.MathContext
 
 @Preview
 @Composable
@@ -414,23 +416,28 @@ private fun CalculatorKey(
 }
 
 private fun calculate(a: Double, op: String, b: Double): Double {
-    return when (op) {
+    val x = BigDecimal.valueOf(a)
+    val y = BigDecimal.valueOf(b)
+
+    val answer =  when (op) {
         "+" -> {
-            a + b
+            x.add(y)
         }
 
         "-" -> {
-            a - b
+            x.subtract(y)
         }
 
         "x" -> {
-            a * b
+            x.multiply(y)
         }
 
         else -> {
-            a / b
+            x.divide(y, MathContext.DECIMAL64)
         }
     }
+
+    return answer.toDouble()
 }
 
 private fun formatNumber(value: Double): String {
