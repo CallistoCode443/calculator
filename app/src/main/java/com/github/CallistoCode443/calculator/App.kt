@@ -110,6 +110,8 @@ fun App(modifier: Modifier = Modifier) {
                 } else if (pendingOperation != "") {
                     pendingOperation = label
                     topText = formatNumber(accumulated) + " " + label
+                } else if (label == "-") {
+                    current = "-"
                 }
             }
 
@@ -171,6 +173,8 @@ fun App(modifier: Modifier = Modifier) {
                 if (!current.contains(".")) {
                     if (current == "") {
                         current = "0."
+                    } else if (current == "-") {
+                        current = "-0."
                     } else {
                         current += "."
                     }
@@ -200,6 +204,8 @@ fun App(modifier: Modifier = Modifier) {
 
                 if (current == "0") {
                     current = label
+                } else if (current == "-0") {
+                    current = "-$label"
                 } else {
                     current += label
                 }
