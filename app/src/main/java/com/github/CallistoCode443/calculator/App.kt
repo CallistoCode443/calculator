@@ -171,12 +171,16 @@ fun App(modifier: Modifier = Modifier) {
                 }
 
                 if (!current.contains(".")) {
-                    if (current == "") {
-                        current = "0."
-                    } else if (current == "-") {
-                        current = "-0."
-                    } else {
-                        current += "."
+                    when (current) {
+                        "" -> {
+                            current = "0."
+                        }
+                        "-" -> {
+                            current = "-0."
+                        }
+                        else -> {
+                            current += "."
+                        }
                     }
                 }
             }
@@ -202,12 +206,16 @@ fun App(modifier: Modifier = Modifier) {
                     }
                 }
 
-                if (current == "0") {
-                    current = label
-                } else if (current == "-0") {
-                    current = "-$label"
-                } else {
-                    current += label
+                when (current) {
+                    "0" -> {
+                        current = label
+                    }
+                    "-0" -> {
+                        current = "-$label"
+                    }
+                    else -> {
+                        current += label
+                    }
                 }
             }
         }
