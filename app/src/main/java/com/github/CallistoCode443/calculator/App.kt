@@ -223,9 +223,10 @@ fun App(modifier: Modifier = Modifier) {
         ) {
             Text(
                 text = topText.ifEmpty { " " },
-                fontSize = 40.sp,
+                fontSize = 20.sp,
                 color = MaterialTheme.colorScheme.secondary,
                 maxLines = 1,
+
                 modifier = Modifier
                     .fillMaxWidth()
                     .horizontalScroll(rememberScrollState()),
@@ -233,7 +234,7 @@ fun App(modifier: Modifier = Modifier) {
             )
             Text(
                 text = bottomText,
-                fontSize = 80.sp,
+                fontSize = 40.sp,
                 maxLines = 1,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -392,7 +393,7 @@ private fun CalculatorKey(
         colors = ButtonDefaults.textButtonColors(contentColor = color),
         shape = RoundedCornerShape(8.dp)
     ) {
-        Text(label, fontSize = 38.sp, fontWeight = FontWeight.Medium)
+        Text(label, fontSize = 30.sp, fontWeight = FontWeight.Medium)
     }
 }
 
